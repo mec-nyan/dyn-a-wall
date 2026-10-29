@@ -22,6 +22,7 @@ wallpapers" (or background slide shows) for **Gnome Shell**.  These are backgrou
 change automatically after a specified period of time with optional transitions between images.
 
 > _**I don't wanna readd all of this! Hurry up and just tell me how to make my dynamic wallpaper!**_
+>
 > _In a nutshell, assuming you've already downloaded and compiled/installed **dynawall**, just run
 > the following command to create and install the wallpaper:_
 >
@@ -29,7 +30,7 @@ change automatically after a specified period of time with optional transitions 
 >
 > _(Don't  type the `$`, that's your shell prompt.)  If nothing goes wrong, that command will create
 > the wallpaper with the default settings and install it under `/home/${USER}/.local/share/`.  For
-> more options read [**How do I use it?**](#how-do-i-use-it?)._
+> more options read [**How do I use it?**](#how-do-i-use-it)._
 
 
 # Why is this useful?
