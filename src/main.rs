@@ -3,6 +3,8 @@
 //! Create and install dynamic wallpapers (aka background slide shows) for Gnome Shell.
 //!
 
+mod parse_args;
+
 fn main() {
     // 1. Parse command line arguments:
     //    - Name:                           string
