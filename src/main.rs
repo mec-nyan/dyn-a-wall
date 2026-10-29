@@ -4,6 +4,7 @@
 //!
 
 mod parse_args;
+mod slide_show;
 
 fn main() {
     // 1. Parse command line arguments:
