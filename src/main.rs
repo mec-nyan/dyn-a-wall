@@ -3,10 +3,11 @@
 //! Create and install dynamic wallpapers (aka background slide shows) for Gnome Shell.
 //!
 
+mod files;
 mod parse_args;
 mod slide_show;
 
-fn main() {
+fn main() -> Result<(), String> {
     // 1. Parse command line arguments:
     //    - Name:                           string
     //    - Images directory:               string
@@ -15,12 +16,7 @@ fn main() {
     //    - With transition, in which case: boolean
     //        - Transition duration:        number
     //    - Do install:                     boolean
-    let options = parse_args::parse();
-
-    match options {
-        Ok(opts) => println!("{}", opts),
-        Err(message) => eprintln!("ERROR: {}", message),
-    }
+    let options = parse_args::parse()?;
 
     // 2. Generate the file names and paths.  Consider the value of the "install" flag.
     //    - true:
@@ -55,4 +51,6 @@ fn main() {
     //    6.2 Create the wallpaper xml file.
 
     // 7. Print final message and exit.
+
+    Ok(())
 }
