@@ -21,7 +21,7 @@ pub struct Options {
 
 impl Options {
     /// Create a new Options object with default values.
-    fn new() -> Self {
+    pub fn new() -> Self {
         Options {
             // Default wallpaper name.  This will work only one time as names must not conflict.
             name: String::from("dynawall"),
