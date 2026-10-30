@@ -15,6 +15,12 @@ fn main() {
     //    - With transition, in which case: boolean
     //        - Transition duration:        number
     //    - Do install:                     boolean
+    let options = parse_args::parse();
+
+    match options {
+        Ok(opts) => println!("{}", opts),
+        Err(message) => eprintln!("ERROR: {}", message),
+    }
 
     // 2. Generate the file names and paths.  Consider the value of the "install" flag.
     //    - true:

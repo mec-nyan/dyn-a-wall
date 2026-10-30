@@ -4,6 +4,8 @@
 //! more flexible handling of arguments.  Besides, this simple command line interface will be
 //! superseded by a fully fledged TUI soon.
 
+use std::fmt::Display;
+
 /// Command line options.  All of them will have default values.
 #[derive(Debug)]
 pub struct Options {
@@ -40,6 +42,32 @@ impl Options {
             // By default don't overwrite the wallpaper if it already exists.
             overwrite: false,
         }
+    }
+}
+
+impl Display for Options {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            r#"
+name:        {}
+directory:   {}
+duration:    {}
+transition:  {}
+t. duration: {}
+install:     {}
+copy:        {}
+overwrite:   {}
+"#,
+            self.name,
+            self.directory,
+            self.duration,
+            self.transition,
+            self.transition_duration,
+            self.install,
+            self.copy,
+            self.overwrite
+        )
     }
 }
 
