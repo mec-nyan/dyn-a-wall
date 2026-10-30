@@ -9,14 +9,14 @@ use std::fmt::Display;
 /// Command line options.  All of them will have default values.
 #[derive(Debug)]
 pub struct Options {
-    name: String,
-    directory: String,
-    duration: usize,
-    transition: bool,
-    transition_duration: usize,
-    install: bool,
-    copy: bool,
-    overwrite: bool,
+    pub name: String,
+    pub directory: String,
+    pub duration: usize,
+    pub transition: bool,
+    pub transition_duration: usize,
+    pub install: bool,
+    pub copy: bool,
+    pub overwrite: bool,
 }
 
 impl Options {
