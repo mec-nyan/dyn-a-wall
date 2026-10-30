@@ -75,7 +75,7 @@ overwrite:   {}
 pub fn parse() -> Result<Options, String> {
     let args: Vec<String> = std::env::args().collect();
 
-    return _parse(args);
+    return _parse(args[1..].to_vec());
 }
 
 enum NextAs {
