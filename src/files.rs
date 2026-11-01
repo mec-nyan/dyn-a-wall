@@ -9,6 +9,8 @@
 //!        - If the user opts to copy the images, they will be copied to this directory.
 //!    - describing/gnome-background-properties/WALLPAPER_NAME.xml
 
+use std::{fs, path::Path};
+
 use crate::parse_args::Options;
 
 pub struct Files {
@@ -16,6 +18,35 @@ pub struct Files {
     pub wallpaper_name: String,
     pub wallpaper_dir: String,
     pub properties_dir: String,
+}
+
+/// Create the wallpaper directory.  This directory will contain the slide show description and the
+/// images if the "copy" option is selected.  Options are included to implement "overwrite".
+pub fn make_wallpaper_directory(files: &Files, _: &Options) -> std::result::Result<(), String> {
+    // Get the parent directory.  We must ensure it exists (we'll create it if it doesn't).
+    let wallpaper_path = Path::new(&files.wallpaper_dir);
+    let backgrounds_path = wallpaper_path.parent().unwrap();
+
+    // Ensure the parent directory exists.
+    make_backgrounds_directory(backgrounds_path)?;
+
+    // create_dir_all won't fail if the directory is already present, and "exists" is not safe.
+    // We'll use the atomic "create_dir" to create the wallpaper directory if it doesn't exist and
+    // exit the program if it does.  We don't want to overwrite the wallpaper unless the user
+    // explicitly says so.
+    let wallpaper_dir = fs::create_dir(wallpaper_path);
+    match wallpaper_dir {
+        Ok(_) => Ok(()),
+        Err(msg) => Err(format!("Failed to create wallpaper directory: {msg}")),
+    }
+}
+
+fn make_backgrounds_directory(path: &Path) -> std::result::Result<(), String> {
+    let result = fs::create_dir_all(path);
+    match result {
+        Ok(_) => Ok(()),
+        Err(msg) => Err(format!("Failed to create backgrounds directory: {msg}")),
+    }
 }
 
 pub fn get_paths(options: &Options) -> std::result::Result<Files, String> {
