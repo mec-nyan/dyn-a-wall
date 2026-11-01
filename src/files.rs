@@ -9,7 +9,10 @@
 //!        - If the user opts to copy the images, they will be copied to this directory.
 //!    - describing/gnome-background-properties/WALLPAPER_NAME.xml
 
-use std::{fs, path::Path};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
 use crate::parse_args::Options;
 
@@ -20,9 +23,39 @@ pub struct Files {
     pub properties_dir: String,
 }
 
+/// Search for images in the specified directory.  Return an error if no images were found.
+// TODO: Option to search recursively.
+pub fn find_images(dir: &str) -> Result<Vec<PathBuf>, String> {
+    let path = if dir == "." {
+        std::env::current_dir().unwrap()
+    } else {
+        PathBuf::from(dir)
+    };
+
+    let mut images: Vec<PathBuf> = Vec::new();
+
+    // TODO: Get rid of all these `unwrap` and handle errors properly.
+    if path.is_dir() {
+        for entry in fs::read_dir(&path).unwrap() {
+            let entry = entry.unwrap();
+            let path = entry.path();
+            let extension = path.extension().unwrap();
+            if extension == "png" || extension == "jpg" {
+                images.push(path);
+            }
+        }
+    }
+
+    if images.len() == 0 {
+        Err(format!("There are no images in {}", path.to_string_lossy()))
+    } else {
+        Ok(images)
+    }
+}
+
 /// Create the wallpaper directory.  This directory will contain the slide show description and the
 /// images if the "copy" option is selected.  Options are included to implement "overwrite".
-pub fn make_wallpaper_directory(files: &Files, _: &Options) -> std::result::Result<(), String> {
+pub fn make_wallpaper_directory(files: &Files, _: &Options) -> Result<(), String> {
     // Get the parent directory.  We must ensure it exists (we'll create it if it doesn't).
     let wallpaper_path = Path::new(&files.wallpaper_dir);
     let backgrounds_path = wallpaper_path.parent().unwrap();
@@ -41,7 +74,7 @@ pub fn make_wallpaper_directory(files: &Files, _: &Options) -> std::result::Resu
     }
 }
 
-fn make_backgrounds_directory(path: &Path) -> std::result::Result<(), String> {
+fn make_backgrounds_directory(path: &Path) -> Result<(), String> {
     let result = fs::create_dir_all(path);
     match result {
         Ok(_) => Ok(()),
@@ -49,7 +82,7 @@ fn make_backgrounds_directory(path: &Path) -> std::result::Result<(), String> {
     }
 }
 
-pub fn get_paths(options: &Options) -> std::result::Result<Files, String> {
+pub fn get_paths(options: &Options) -> Result<Files, String> {
     match destination(options.install) {
         Ok(base) => Ok(Files {
             slide_show_name: format!("{}-slide-show.xml", options.name),
@@ -63,7 +96,7 @@ pub fn get_paths(options: &Options) -> std::result::Result<Files, String> {
 
 const LOCAL_PATH: &str = "./dynawall/share";
 
-fn destination(install: bool) -> std::result::Result<String, String> {
+fn destination(install: bool) -> Result<String, String> {
     if install {
         let home = std::env::home_dir();
         match home {

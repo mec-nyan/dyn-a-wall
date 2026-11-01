@@ -4,7 +4,7 @@
 //!
 
 use crate::{
-    files::{get_paths, make_wallpaper_directory},
+    files::{find_images, get_paths, make_wallpaper_directory},
     parse_args::parse,
 };
 
@@ -23,7 +23,14 @@ fn main() -> Result<(), String> {
     //    - Do install:                     boolean
     let options = parse()?;
 
-    // 2. Generate the file names and paths.  Consider the value of the "install" flag.
+    // 2. Find the images in the given path.
+    //    - If no images are found, return here.
+    let images = match find_images(&options.directory) {
+        Ok(res) => res,
+        Err(msg) => return Err(msg),
+    };
+
+    // 3. Generate the file names and paths.  Consider the value of the "install" flag.
     //    - true:
     //        - For the slide show description (and images if "copy" == true):
     //            - /home/${USER}/.local/share/backgrounds/${NAME}
@@ -37,27 +44,24 @@ fn main() -> Result<(), String> {
     //            - ./share/gnome-background-properties/
     let files = get_paths(&options)?;
 
-    // 3. Check if a wallpaper with that name already exists.
+    // 4. Check if a wallpaper with that name already exists.
     //    If so, abort.
     //    TODO: Instead of aborting, check if the about to be created slide show is present in the
     //    wallpaper.  If it is present, abort.  Otherwise, append to the wallpaper.
     let wallpaper_dir = make_wallpaper_directory(&files, &options)?;
 
-    // 3.  Check if the slide show exists.  If so, abort.
+    // 5.  Check if the slide show exists.  If so, abort.
 
-    // 4. Find the images in the given path.
-    //    - If no images are found, return here.
-
-    // 5. Generate the slide show description.
+    // 6. Generate the slide show description.
     //    5.1 Make the slide show directory.
     //    5.2 Create the slide show file.  Write its content.
     //    5.3 If the "copy" option is true, copy the images to this directory.
 
-    // 6. Generate the wallpaper description.
+    // 7. Generate the wallpaper description.
     //    6.1 Make the directory if it doesn't exist.
     //    6.2 Create the wallpaper xml file.
 
-    // 7. Print final message and exit.
+    // 8. Print final message and exit.
 
     Ok(())
 }
