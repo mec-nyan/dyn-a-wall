@@ -1,6 +1,19 @@
 #include "app.hpp"
+#include <iostream>
 
 using namespace app;
+
+
+auto operator << ( std::ostream& os, Options& opts ) -> std::ostream&
+{
+    return os << "Options:" << "\n- Name: " << opts.name()
+              << "\n- Images directory: " << opts.img_dir() << "\n- Install: " << std::boolalpha
+              << opts.install() << "\n- Copy: " << opts.copy()
+              << "\n- Recursive: " << opts.recursive_search()
+              << "\n- Overwrite: " << opts.overwrite() << "\n- Image duration: " << opts.duration()
+              << "\n- Transition: " << opts.with_transition()
+              << "\n- Transition duration: " << opts.transition_duration() << "\n";
+}
 
 auto App::run () -> int
 {
@@ -79,6 +92,8 @@ auto App::run () -> int
 
     - Optionally copy the images to the wallpaper directory.
     */
+
+    std::cout << _options;
 
     return 0;
 }
