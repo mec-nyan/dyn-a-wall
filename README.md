@@ -6,11 +6,11 @@ Create dynamic wallpapers (aka background slide shows) for **Gnome Shell**
 
 **This repository contains the program written in several languages.**
 
-_If you prefer the **Rust** version, go to the [East](./Rust/)._
+_If you prefer the **Rust** version, go to the [East](./Rust/dyn-a-wall/)._
 
-_If you rather want the **C++** version, go to the [West](./Cpp/)._
+_If you rather want the **C++** version, go to the [West](./Cpp/dyn-a-wall/)._
 
-_If you're more comfortable with the **Go** version, go [South](./Go/) instead._
+_If you're more comfortable with the **Go** version, go [South](./Go/dyn-a-wall/) instead._
 
 
 >[!NOTE]
