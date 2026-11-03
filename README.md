@@ -2,17 +2,23 @@
 
 Create dynamic wallpapers (aka background slide shows) for **Gnome Shell**
 
-🦀🦀🦀 [![Rust](https://img.shields.io/badge/Rust-1.93-orange?style=for-the-badge)](https://rust-lang.org/) 🦀🦀🦀
+---
 
-> [!IMPORTANT]
-> Work in progress!  This app is not ready for use yet.
+**This repository contains the program written in several languages.**
+
+_If you prefer the **Rust** version, go to the [East](./Rust/)._
+
+_If you rather want the **C++** version, go to the [West](./Cpp/)._
+
+_If you're more comfortable with the **Go** version, go [South](./Go/) instead._
 
 
 >[!NOTE]
 > **AI Usage Disclosure:**
 > This project is entirely hand-crafted by a human 💖.  No AI tools of any kind were used in any
 > stage of the development cycle.  Ideas, concepts, research, design, programming, all of it is made
-> by an actual human being (with some help of other humans).
+> by an actual human being (with some help of other humans).  _(Not an anti-AI rant. I just wanted
+> to be clear.)_
 
 
 # What is this?
