@@ -10,8 +10,9 @@ add_executable(dynawall)
 
 target_sources(dynawall
 	PRIVATE
-		src/main.cpp
+		src/options.cpp
 		src/app.cpp
+		src/main.cpp
 )
 
 find_package(Catch2 REQUIRED)
@@ -21,6 +22,7 @@ add_executable(tests)
 target_sources(tests
 	PRIVATE
 		tests/test_app.cpp
+		src/options.cpp
 		src/app.cpp
 )
 

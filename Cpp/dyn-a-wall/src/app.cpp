@@ -1,20 +1,9 @@
 #include "app.hpp"
 #include <iostream>
 
-using namespace app;
 
-
-auto operator << ( std::ostream& os, Options& opts ) -> std::ostream&
+namespace app
 {
-    return os << "Options:" << "\n- Name: " << opts.name()
-              << "\n- Images directory: " << opts.img_dir() << "\n- Install: " << std::boolalpha
-              << opts.install() << "\n- Copy: " << opts.copy()
-              << "\n- Recursive: " << opts.recursive_search()
-              << "\n- Overwrite: " << opts.overwrite() << "\n- Image duration: " << opts.duration()
-              << "\n- Transition: " << opts.with_transition()
-              << "\n- Transition duration: " << opts.transition_duration() << "\n";
-}
-
 auto App::run () -> int
 {
     /*
@@ -98,101 +87,4 @@ auto App::run () -> int
     return 0;
 }
 
-auto Options::with_name ( std::string name ) -> Options&
-{
-    _name = name;
-    return *this;
-}
-
-auto Options::with_img_dir ( std::string img_dir ) -> Options&
-{
-    _img_dir = img_dir;
-    return *this;
-}
-
-auto Options::with_install ( bool install ) -> Options&
-{
-    _install = install;
-    return *this;
-}
-
-auto Options::with_copy ( bool copy ) -> Options&
-{
-    _copy = copy;
-    return *this;
-}
-
-auto Options::with_recursive_search ( bool recursive ) -> Options&
-{
-    _recursive_search = recursive;
-    return *this;
-}
-
-auto Options::with_with_transition ( bool with_transition ) -> Options&
-{
-    _with_transition = with_transition;
-    return *this;
-}
-
-auto Options::with_overwrite ( bool overwrite ) -> Options&
-{
-    _overwrite = overwrite;
-    return *this;
-}
-
-auto Options::with_duration ( unsigned duration ) -> Options&
-{
-    _duration = duration;
-    return *this;
-}
-
-auto Options::with_transition_duration ( unsigned transition_duration ) -> Options&
-{
-    _transition_duration = transition_duration;
-    return *this;
-}
-
-auto Options::name () -> std::string
-{
-    return _name;
-}
-
-auto Options::img_dir () -> std::string
-{
-    return _img_dir;
-}
-
-auto Options::install () -> bool
-{
-    return _install;
-}
-
-auto Options::copy () -> bool
-{
-    return _copy;
-}
-
-auto Options::recursive_search () -> bool
-{
-    return _recursive_search;
-}
-
-auto Options::with_transition () -> bool
-{
-    return _with_transition;
-}
-
-auto Options::overwrite () -> bool
-{
-    return _overwrite;
-}
-
-auto Options::duration () -> unsigned
-{
-    return _duration;
-}
-
-auto Options::transition_duration () -> unsigned
-{
-    return _transition_duration;
-}
+}  // namespace app
