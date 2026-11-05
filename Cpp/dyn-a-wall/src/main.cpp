@@ -2,5 +2,5 @@
 
 auto main () -> int
 {
-    return app::App().run();
+	return app::App().run();
 }

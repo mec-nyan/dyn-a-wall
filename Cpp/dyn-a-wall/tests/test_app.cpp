@@ -4,5 +4,5 @@
 
 TEST_CASE ( "App::run returns zero (0).", "[app::App]" )
 {
-    REQUIRE ( app::App().run() == 0 );
+	REQUIRE ( app::App().run() == 0 );
 }
