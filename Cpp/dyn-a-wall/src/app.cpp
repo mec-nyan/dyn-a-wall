@@ -82,12 +82,6 @@ using namespace std::literals::string_literals;
 
 namespace app
 {
-	// Temporary error for development.
-	enum class Error
-	{
-		not_implemented
-	};
-
 	// Let's try to do some compile driven development, with a more functional approach.
 	auto run ( int argc, char* argv[] ) -> int
 	{

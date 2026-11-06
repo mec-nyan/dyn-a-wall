@@ -10,6 +10,12 @@
 
 namespace app
 {
+	// Temporary error for development.
+	enum class Error
+	{
+		not_implemented
+	};
+
 	auto run ( int argc, char* argv[] ) -> int;
 
 	// Parse the command line arguments (if any) and return Options or an Error in case of invalid
