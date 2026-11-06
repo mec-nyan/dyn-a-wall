@@ -1,13 +1,14 @@
 #include "app.hpp"
-#include <iostream>
+#include <print>
 
 
 namespace app
 {
-	auto App::run () -> int
+	auto run ( std::vector<std::string_view> args ) -> int
 	{
 		/*
 		We need to:
+		- Parse command line arguments.
 
 		- Find the images:
 		    - In the current or specified directory.
@@ -82,9 +83,19 @@ namespace app
 		- Optionally copy the images to the wallpaper directory.
 		*/
 
-		std::cout << _options;
+		for (const auto& a : args)
+			std::println ( "{}", a );
 
 		return 0;
 	}
 
+	auto to_sv ( int argc, char* argv[] ) -> std::vector<std::string_view>
+	{
+		std::vector<std::string_view> args{};
+
+		for (int i{ 0 }; i < argc; ++i)
+			args.push_back ( argv[ i ] );
+
+		return args;
+	}
 }  // namespace app

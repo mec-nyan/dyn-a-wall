@@ -1,6 +1,7 @@
 #include "app.hpp"
 
-auto main () -> int
+
+auto main ( int argc, char* argv[] ) -> int
 {
-	return app::App().run();
+	return app::run ( app::to_sv ( argc, argv ) );
 }

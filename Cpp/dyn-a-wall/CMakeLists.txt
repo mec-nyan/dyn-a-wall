@@ -10,6 +10,7 @@ add_executable(dynawall)
 
 target_sources(dynawall
 	PRIVATE
+		src/files.cpp
 		src/options.cpp
 		src/app.cpp
 		src/main.cpp
@@ -22,6 +23,7 @@ add_executable(tests)
 target_sources(tests
 	PRIVATE
 		tests/test_app.cpp
+		src/files.cpp
 		src/options.cpp
 		src/app.cpp
 )

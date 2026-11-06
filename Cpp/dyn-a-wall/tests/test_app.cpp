@@ -4,5 +4,8 @@
 
 TEST_CASE ( "App::run returns zero (0).", "[app::App]" )
 {
-	REQUIRE ( app::App().run() == 0 );
+	int   argc{ 0 };
+	char* argv[] = { 0 };
+
+	REQUIRE ( app::run ( app::to_sv ( argc, argv ) ) == 0 );
 }
