@@ -4,8 +4,8 @@
 
 TEST_CASE ( "App::run returns zero (0).", "[app::App]" )
 {
-	int   argc{ 0 };
-	char* argv[] = { 0 };
+	int   argc{ 1 };
+	char* argv[ 1 ] = { const_cast<char*> ( "./dynawall" ) };
 
-	REQUIRE ( app::run ( app::to_sv ( argc, argv ) ) == 0 );
+	REQUIRE ( app::run ( argc, argv ) == 0 );
 }
