@@ -3,6 +3,7 @@
 #include "options.hpp"
 #include <expected>
 #include <optional>
+#include <string>
 #include <vector>
 
 
@@ -16,4 +17,14 @@ namespace app
 
 	// Find images in the given directory.  There can be no images there.
 	auto get_images ( std::string_view path ) -> std::optional<std::vector<std::string_view>>;
+
+	// Get installation directory.  We should be able to get the user directory.
+	auto get_install_dir ( bool install ) -> std::expected<std::string, std::string>;
+
+	// Where to put the slide show.
+	auto wallpaper_dir ( std::string base ) -> std::string;
+
+	// Where to put the wallpaper file.
+	auto properties_dir ( std::string base ) -> std::string;
+
 }  // namespace app

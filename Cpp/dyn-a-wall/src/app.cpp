@@ -76,7 +76,9 @@ Flow:
 */
 
 #include "app.hpp"
+#include <print>
 
+using namespace std::literals::string_literals;
 
 namespace app
 {
@@ -92,17 +94,36 @@ namespace app
 		}
 		else
 		{
+			std::println ( "Error: {}", o.error() );
 			return 1;
 		}
 
 
 		// Check pre-condition: images exist.
-
-
 		// Make images list.
+		std::vector<std::string_view> images{};
+		if (const auto img = get_images ( opts.img_dir() ); img.has_value())
+		{
+			images = img.value();
+		}
+		else
+		{
+			std::println ( "No images found in {}.", opts.img_dir() );
+			return 1;
+		}
 
 
 		// Make paths and file names.
+		std::string install_dir{};
+		if (const auto id = get_install_dir ( opts.install() ); id.has_value())
+		{
+			install_dir = id.value();
+		}
+		else
+		{
+			std::println ( "Error: {}", id.error() );
+			return 1;
+		}
 
 
 		// Check pre-conditions: wallpaper directory, wallpaper, slide show.  Overwrite?
