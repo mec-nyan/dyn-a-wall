@@ -82,6 +82,12 @@ using namespace std::literals::string_literals;
 
 namespace app
 {
+	// Temporary error for development.
+	enum class Error
+	{
+		not_implemented
+	};
+
 	// Let's try to do some compile driven development, with a more functional approach.
 	auto run ( int argc, char* argv[] ) -> int
 	{
@@ -152,6 +158,52 @@ namespace app
 
 
 		return 0;
+	}
+
+	auto get_cli_opts ( int argc, char* argv[] ) -> std::expected<options::Options, std::string>
+	{
+		throw Error::not_implemented;
+	}
+
+	auto get_images ( std::string_view path ) -> std::optional<std::vector<std::string_view>>
+	{
+		throw Error::not_implemented;
+	}
+
+	auto get_install_dir ( bool install ) -> std::expected<std::string, std::string>
+	{
+		throw Error::not_implemented;
+	}
+
+	auto get_wallpaper_dir_name ( std::string base ) -> std::string
+	{
+		throw Error::not_implemented;
+	}
+
+	auto get_properties_dir_name ( std::string base ) -> std::string
+	{
+		throw Error::not_implemented;
+	}
+
+	auto make_properties_dir ( std::filesystem::path dir )
+	{
+		throw Error::not_implemented;
+	}
+
+	auto make_wallpaper_dir ( std::filesystem::path dir, bool install )
+	{
+		throw Error::not_implemented;
+	}
+
+	auto make_slide_show ( std::vector<std::string_view> images, options::Options opts )
+		-> std::string
+	{
+		throw Error::not_implemented;
+	}
+
+	auto make_wallpaper ( std::string path ) -> std::string
+	{
+		throw Error::not_implemented;
 	}
 
 }  // namespace app
