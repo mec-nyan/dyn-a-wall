@@ -125,8 +125,13 @@ namespace app
 			return 1;
 		}
 
+		auto wallpaper_dir_name{ get_wallpaper_dir_name ( install_dir ) };
+
+		auto properties_dir_name{ get_properties_dir_name ( install_dir ) };
+
 
 		// Check pre-conditions: wallpaper directory, wallpaper, slide show.  Overwrite?
+		// TODO.
 
 
 		// Create xml file content.  Checking previous conditions may have opened/created the
