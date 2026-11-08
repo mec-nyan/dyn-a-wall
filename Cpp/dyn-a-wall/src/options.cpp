@@ -32,7 +32,7 @@ namespace options
 		return *this;
 	}
 
-	auto Options::with_with_transition( bool with_transition ) -> Options&
+	auto Options::with_transition( bool with_transition ) -> Options&
 	{
 		_with_transition = with_transition;
 		return *this;
@@ -81,7 +81,7 @@ namespace options
 		return _recursive_search;
 	}
 
-	auto Options::with_transition() const -> bool
+	auto Options::transition() const -> bool
 	{
 		return _with_transition;
 	}
@@ -109,7 +109,7 @@ namespace options
 		          << "\n- Recursive: " << opts.recursive_search()
 		          << "\n- Overwrite: " << opts.overwrite()
 		          << "\n- Image duration: " << opts.duration()
-		          << "\n- Transition: " << opts.with_transition()
+		          << "\n- Transition: " << opts.transition()
 		          << "\n- Transition duration: " << opts.transition_duration() << "\n";
 	}
 
