@@ -41,10 +41,10 @@ namespace app
 	auto make_wallpaper_dir ( std::filesystem::path dir, bool install );
 
 	// The next function should not fail.
-	auto make_slide_show ( std::vector<std::string_view> images, options::Options opts )
+	auto make_slide_show ( const std::vector<std::string_view>& images, options::Options opts )
 		-> std::string;
 
 	// The next function should not fail.
-	auto make_wallpaper ( std::string path ) -> std::string;
+	auto make_wallpaper ( const std::string& path ) -> std::string;
 
 }  // namespace app

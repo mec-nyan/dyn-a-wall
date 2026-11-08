@@ -189,13 +189,13 @@ namespace app
 		throw Error::not_implemented;
 	}
 
-	auto make_slide_show ( std::vector<std::string_view> images, options::Options opts )
+	auto make_slide_show ( const std::vector<std::string_view>& images, options::Options opts )
 		-> std::string
 	{
 		throw Error::not_implemented;
 	}
 
-	auto make_wallpaper ( std::string path ) -> std::string
+	auto make_wallpaper ( const std::string& path ) -> std::string
 	{
 		throw Error::not_implemented;
 	}
