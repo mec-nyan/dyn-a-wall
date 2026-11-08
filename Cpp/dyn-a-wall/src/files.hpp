@@ -10,12 +10,12 @@ namespace files
 	{
 	  public:
 		// TODO: Should we load everything in the constructor?
-		FileOps ()
+		FileOps()
 		{
 		}
 
 		// TODO: We'll have two file handles.  Should we be explicit on the constructor?
-		~FileOps ()
+		~FileOps()
 		{
 		}
 

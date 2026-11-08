@@ -12,33 +12,33 @@ namespace options
 	  public:
 		// Empty constructor with default options.  Since every option is, well, "optional" (hence
 		// the name ...) I've provided chaining methods instead of lots of overloaded constructors.
-		Options ()
+		Options()
 		{
 		}
 
-		~Options ()
+		~Options()
 		{
 		}
 
-		auto with_name ( std::string name ) -> Options&;
-		auto with_img_dir ( std::string img_dir ) -> Options&;
-		auto with_install ( bool install ) -> Options&;
-		auto with_copy ( bool copy ) -> Options&;
-		auto with_recursive_search ( bool recursive ) -> Options&;
-		auto with_with_transition ( bool with_transition ) -> Options&;
-		auto with_overwrite ( bool overwrite ) -> Options&;
-		auto with_duration ( unsigned duration ) -> Options&;
-		auto with_transition_duration ( unsigned transition_duration ) -> Options&;
+		auto with_name( std::string name ) -> Options&;
+		auto with_img_dir( std::string img_dir ) -> Options&;
+		auto with_install( bool install ) -> Options&;
+		auto with_copy( bool copy ) -> Options&;
+		auto with_recursive_search( bool recursive ) -> Options&;
+		auto with_with_transition( bool with_transition ) -> Options&;
+		auto with_overwrite( bool overwrite ) -> Options&;
+		auto with_duration( unsigned duration ) -> Options&;
+		auto with_transition_duration( unsigned transition_duration ) -> Options&;
 
-		auto name () const -> std::string;
-		auto img_dir () const -> std::string;
-		auto install () const -> bool;
-		auto copy () const -> bool;
-		auto recursive_search () const -> bool;
-		auto with_transition () const -> bool;
-		auto overwrite () const -> bool;
-		auto duration () const -> unsigned;
-		auto transition_duration () const -> unsigned;
+		auto name() const -> std::string;
+		auto img_dir() const -> std::string;
+		auto install() const -> bool;
+		auto copy() const -> bool;
+		auto recursive_search() const -> bool;
+		auto with_transition() const -> bool;
+		auto overwrite() const -> bool;
+		auto duration() const -> unsigned;
+		auto transition_duration() const -> unsigned;
 
 	  private:
 		// Wallpaper name.
@@ -61,6 +61,6 @@ namespace options
 		unsigned _transition_duration{ 2 };
 	};
 
-	auto operator << ( std::ostream& os, const Options& opts ) -> std::ostream&;
+	auto operator <<( std::ostream& os, const Options& opts ) -> std::ostream&;
 
 }  // namespace options

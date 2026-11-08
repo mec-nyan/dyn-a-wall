@@ -3,19 +3,19 @@
 #include <format>
 
 
-TEST_CASE ( "App::run returns zero (0).", "[app::App]" )
+TEST_CASE( "App::run returns zero (0).", "[app::App]" )
 {
 	int   argc{ 1 };
-	char* argv[ 1 ] = { const_cast<char*> ( "./dynawall" ) };
+	char* argv[ 1 ] = { const_cast<char*>( "./dynawall" ) };
 
-	REQUIRE ( app::run ( argc, argv ) == 0 );
+	REQUIRE( app::run( argc, argv ) == 0 );
 }
 
-TEST_CASE ( "Make wallpaper xml content.", "[app]" )
+TEST_CASE( "Make wallpaper xml content.", "[app]" )
 {
 	std::string path{ "/path/to/my/wallpaper.xml" };
 
-	std::string expected{ std::format ( R"(<?xml version="1.0"?>
+	std::string expected{ std::format( R"(<?xml version="1.0"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
     <wallpaper deleted="false">
@@ -26,14 +26,14 @@ TEST_CASE ( "Make wallpaper xml content.", "[app]" )
         <scolor>#000000</scolor>
     </wallpaper>
 </wallpapers>)",
-	                                    path ) };
+	                                   path ) };
 
-	std::string actual{ app::make_wallpaper ( path ) };
+	std::string actual{ app::make_wallpaper( path ) };
 
-	REQUIRE ( actual == expected );
+	REQUIRE( actual == expected );
 }
 
-TEST_CASE ( "Make slide show xml content (no transition).", "[app]" )
+TEST_CASE( "Make slide show xml content (no transition).", "[app]" )
 {
 	std::vector<std::string_view> images{
 		"/dir/img1.png",
@@ -43,7 +43,7 @@ TEST_CASE ( "Make slide show xml content (no transition).", "[app]" )
 
 	auto opts{ options::Options() };
 
-	std::string expected{ std::format ( R"(<background>
+	std::string expected{ std::format( R"(<background>
     <starttime>
         <year>2000</year>
         <month>1</month>
@@ -69,10 +69,10 @@ TEST_CASE ( "Make slide show xml content (no transition).", "[app]" )
     </static>
 </background>
 )",
-	                                    opts.duration(), images.at ( 0 ), images.at ( 1 ),
-	                                    images.at ( 2 ) ) };
+	                                   opts.duration(), images.at( 0 ), images.at( 1 ),
+	                                   images.at( 2 ) ) };
 
-	std::string actual{ app::make_slide_show ( images, opts ) };
+	std::string actual{ app::make_slide_show( images, opts ) };
 
-	REQUIRE ( actual == expected );
+	REQUIRE( actual == expected );
 }

@@ -2,21 +2,21 @@
 #include <print>
 
 
-auto main ( int argc, char* argv[] ) -> int
+auto main( int argc, char* argv[] ) -> int
 {
 	try
 	{
-		app::run ( argc, argv );
+		app::run( argc, argv );
 	}
-	catch (app::Error e)
+	catch ( app::Error e )
 	{
-		if (e == app::Error::not_implemented)
+		if ( e == app::Error::not_implemented )
 		{
-			std::println ( "Not implemented." );
+			std::println( "Not implemented." );
 		}
 		return 1;
 	}
-	catch (...)
+	catch ( ... )
 	{
 		return 42;
 	}

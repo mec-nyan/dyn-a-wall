@@ -83,18 +83,18 @@ using namespace std::literals::string_literals;
 namespace app
 {
 	// Let's try to do some compile driven development, with a more functional approach.
-	auto run ( int argc, char* argv[] ) -> int
+	auto run( int argc, char* argv[] ) -> int
 	{
 		// Parse command line arguments.
 		// Set program options.
 		options::Options opts;
-		if (const auto o = get_cli_opts ( argc, argv ); o.has_value())
+		if ( const auto o = get_cli_opts( argc, argv ); o.has_value() )
 		{
 			opts = *o;
 		}
 		else
 		{
-			std::println ( "Error: {}", o.error() );
+			std::println( "Error: {}", o.error() );
 			return 1;
 		}
 
@@ -102,32 +102,32 @@ namespace app
 		// Check pre-condition: images exist.
 		// Make images list.
 		std::vector<std::string_view> images{};
-		if (const auto img = get_images ( opts.img_dir() ); img.has_value())
+		if ( const auto img = get_images( opts.img_dir() ); img.has_value() )
 		{
 			images = img.value();
 		}
 		else
 		{
-			std::println ( "No images found in {}.", opts.img_dir() );
+			std::println( "No images found in {}.", opts.img_dir() );
 			return 1;
 		}
 
 
 		// Make paths and file names.
 		std::string install_dir{};
-		if (const auto id = get_install_dir ( opts.install() ); id.has_value())
+		if ( const auto id = get_install_dir( opts.install() ); id.has_value() )
 		{
 			install_dir = id.value();
 		}
 		else
 		{
-			std::println ( "Error: {}", id.error() );
+			std::println( "Error: {}", id.error() );
 			return 1;
 		}
 
-		auto wallpaper_dir_name{ get_wallpaper_dir_name ( install_dir ) };
+		auto wallpaper_dir_name{ get_wallpaper_dir_name( install_dir ) };
 
-		auto properties_dir_name{ get_properties_dir_name ( install_dir ) };
+		auto properties_dir_name{ get_properties_dir_name( install_dir ) };
 
 
 		// Check pre-conditions: wallpaper directory, wallpaper, slide show.  Overwrite?
@@ -154,48 +154,48 @@ namespace app
 		return 0;
 	}
 
-	auto get_cli_opts ( int argc, char* argv[] ) -> std::expected<options::Options, std::string>
+	auto get_cli_opts( int argc, char* argv[] ) -> std::expected<options::Options, std::string>
 	{
 		throw Error::not_implemented;
 	}
 
-	auto get_images ( std::string_view path ) -> std::optional<std::vector<std::string_view>>
+	auto get_images( std::string_view path ) -> std::optional<std::vector<std::string_view>>
 	{
 		throw Error::not_implemented;
 	}
 
-	auto get_install_dir ( bool install ) -> std::expected<std::string, std::string>
+	auto get_install_dir( bool install ) -> std::expected<std::string, std::string>
 	{
 		throw Error::not_implemented;
 	}
 
-	auto get_wallpaper_dir_name ( std::string base ) -> std::string
+	auto get_wallpaper_dir_name( std::string base ) -> std::string
 	{
 		throw Error::not_implemented;
 	}
 
-	auto get_properties_dir_name ( std::string base ) -> std::string
+	auto get_properties_dir_name( std::string base ) -> std::string
 	{
 		throw Error::not_implemented;
 	}
 
-	auto make_properties_dir ( std::filesystem::path dir )
+	auto make_properties_dir( std::filesystem::path dir )
 	{
 		throw Error::not_implemented;
 	}
 
-	auto make_wallpaper_dir ( std::filesystem::path dir, bool install )
+	auto make_wallpaper_dir( std::filesystem::path dir, bool install )
 	{
 		throw Error::not_implemented;
 	}
 
-	auto make_slide_show ( const std::vector<std::string_view>& images, options::Options opts )
+	auto make_slide_show( const std::vector<std::string_view>& images, options::Options opts )
 		-> std::string
 	{
 		throw Error::not_implemented;
 	}
 
-	auto make_wallpaper ( const std::string& path ) -> std::string
+	auto make_wallpaper( const std::string& path ) -> std::string
 	{
 		throw Error::not_implemented;
 	}
