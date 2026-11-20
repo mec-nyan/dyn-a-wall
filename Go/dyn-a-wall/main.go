@@ -43,7 +43,7 @@ func main() {
 
 	for _, file := range files {
 		file_name := file.Name()
-		if strings.HasSuffix(file_name, png) || strings.HasSuffix(file_name, jpg) {
+		if is_image(file_name) {
 			images = append(images, cwd+"/"+file_name)
 		}
 	}
@@ -56,7 +56,7 @@ func main() {
 	fmt.Printf("I've found %d images!\n", len(images))
 
 	for i, img := range images {
-		fmt.Printf("\t%2d - %s\n", i, img)
+		fmt.Printf("\t%2d - %s\n", i+1, img)
 	}
 
 	// Make the wallpaper (xml) file.
@@ -77,4 +77,10 @@ func main() {
 	// Abort on errors (unlikely).  Clean up?
 
 	// Print success message with information about the files written.
+}
+
+// TODO: Add all suitable image extensions.
+// NICE: Check if is a valid image.
+func is_image(file_name string) bool {
+	return strings.HasSuffix(file_name, png) || strings.HasSuffix(file_name, jpg)
 }
