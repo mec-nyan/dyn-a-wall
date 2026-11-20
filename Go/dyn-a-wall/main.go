@@ -4,6 +4,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -29,30 +30,15 @@ func main() {
 	//     - The wallpaper already exists.
 	//     - The slide show description already exists.
 
-	// List current dir images.  Abort if there is none.
-	// NOTE: "." is just temporary/default.
-	files, err := os.ReadDir(".")
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	// Use current working directory for now.
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var images []string
-
-	for _, file := range files {
-		file_name := file.Name()
-		if is_image(file_name) {
-			images = append(images, filepath.Join(cwd, file_name))
-		}
-	}
-
-	if len(images) == 0 {
-		println("No images found.")
-		os.Exit(0)
+	images, err := get_images(cwd)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	fmt.Printf("I've found %d images!\n", len(images))
@@ -168,4 +154,28 @@ func main() {
 // NICE: Check if is a valid image.
 func is_image(file_name string) bool {
 	return strings.HasSuffix(file_name, png) || strings.HasSuffix(file_name, jpg)
+}
+
+func get_images(cwd string) ([]string, error) {
+	// List current dir images.  Abort if there is none.
+	// NOTE: "." is just temporary/default.
+	files, err := os.ReadDir(".")
+	if err != nil {
+		return nil, err
+	}
+
+	var images []string
+
+	for _, file := range files {
+		file_name := file.Name()
+		if is_image(file_name) {
+			images = append(images, filepath.Join(cwd, file_name))
+		}
+	}
+
+	if len(images) == 0 {
+		return nil, errors.New("No images found.")
+	}
+
+	return images, nil
 }
