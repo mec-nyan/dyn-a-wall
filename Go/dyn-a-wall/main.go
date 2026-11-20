@@ -3,6 +3,18 @@
 // Create dynamic wallpapers (aka background slide shows) for Gnome Shell.
 package main
 
+import (
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
+
+const (
+	png string = "png"
+	jpg string = "jpg"
+)
+
 // Inverse approach ("do it all").  Then extract.  Then test.
 // This is a simple program ...
 func main() {
@@ -17,6 +29,35 @@ func main() {
 	//     - The slide show description already exists.
 
 	// List current dir images.  Abort if there is none.
+	files, err := os.ReadDir(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var images []string
+
+	for _, file := range files {
+		file_name := file.Name()
+		if strings.HasSuffix(file_name, png) || strings.HasSuffix(file_name, jpg) {
+			images = append(images, cwd+"/"+file_name)
+		}
+	}
+
+	if len(images) == 0 {
+		println("No images found.")
+		os.Exit(0)
+	}
+
+	fmt.Printf("I've found %d images!\n", len(images))
+
+	for i, img := range images {
+		fmt.Printf("\t%2d - %s\n", i, img)
+	}
 
 	// Make the wallpaper (xml) file.
 	// Ensure parent dir exists.

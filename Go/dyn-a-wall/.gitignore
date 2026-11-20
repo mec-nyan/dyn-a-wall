@@ -1,1 +1,5 @@
 # Add go artefacts and editor specific stuff here.
+
+# Files for testing should not be uploaded:
+*.png
+*.jpg
