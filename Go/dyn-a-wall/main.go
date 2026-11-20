@@ -77,14 +77,50 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Make the content of the wallpaper (xml).
-	// Abort on errors (unlikely).  Clean up?
-
 	// Make the content of the slide show description (xml).
+	// Abort on errors (unlikely).  Clean up?
+	// NOTE: Based on https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/adwaita-timed.xml.in?ref_type=heads
+	slide_show_description := `<background>
+	<starttime>
+		<year>2001</year>
+		<month>01</month>
+		<day>01</day>
+		<hour>00</hour>
+		<minute>00</minute>
+		<second>00</second>
+	</starttime>`
+
+	// We'll add transitions and other options later.
+	for _, img := range images {
+		slide_show_description += fmt.Sprintf(`
+
+	<static>
+		<duration>300.0</duration>
+		<file>%s</file>
+	</static>`, img)
+	}
+
+	slide_show_description += "\n</background>\n"
+
+	// Make the content of the wallpaper (xml).
 	// Abort on errors (unlikely).  Clean up?
 
 	// Save content to file(s).
 	// Abort on errors (unlikely).  Clean up?
+	slide_show_file_path := "share/backgrounds/dynawall/dynawall.xml"
+	slide_show_file, err := os.OpenFile(slide_show_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = slide_show_file.WriteString(slide_show_description)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = slide_show_file.Close(); err != nil {
+		log.Fatal(err)
+	}
 
 	// Print success message with information about the files written.
 }
