@@ -29,6 +29,7 @@ func main() {
 	//     - The slide show description already exists.
 
 	// List current dir images.  Abort if there is none.
+	// NOTE: "." is just temporary/default.
 	files, err := os.ReadDir(".")
 	if err != nil {
 		log.Fatal(err)
@@ -62,10 +63,19 @@ func main() {
 	// Make the wallpaper (xml) file.
 	// Ensure parent dir exists.
 	// Abort if file is already there.
+	err = os.MkdirAll("share/backgrounds/gnome-background-properties", 0750)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Make the slide show description (xml) file.
 	// Ensure parent dir exists.
 	// Abort if file is already there.
+	// NOTE: "dynawall" is just a temporary/default name.
+	err = os.MkdirAll("share/backgrounds/dynawall", 0750)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Make the content of the wallpaper (xml).
 	// Abort on errors (unlikely).  Clean up?
