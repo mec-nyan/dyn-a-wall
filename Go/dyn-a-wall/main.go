@@ -96,20 +96,8 @@ func main() {
 
 	// Make the content of the wallpaper (xml).
 	// Abort on errors (unlikely).  Clean up?
-	// Based upon: https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/gnome-backgrounds.xml.in?ref_type=heads
 
-	wallpaper_xml := fmt.Sprintf(`<?xml version="1.0"?>
-<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
-<wallpapers>
-	<wallpaper deleted="false">
-		<name>Dynawall</name>
-		<filename>%s</filename>
-		<options>zoom</options>
-		<pcolor>#ffffff</pcolor>
-		<scolor>#000000</scolor>
-	</wallpaper>
-</wallpapers>
-`, slide_show_file_path)
+	wallpaper_xml := make_wallpaper_xml(slide_show_file_path)
 
 	wallpaper_file_path := filepath.Join(properties_directory, "dynawall_wallpaper.xml")
 	wallpaper_file, err := os.OpenFile(wallpaper_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
@@ -185,4 +173,20 @@ func make_slide_show_description(images []string) string {
 	slide_show_xml += "\n</background>\n"
 
 	return slide_show_xml
+}
+
+func make_wallpaper_xml(slide_show_file_path string) string {
+	// NOTE: Based upon: https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/gnome-backgrounds.xml.in?ref_type=heads
+	return fmt.Sprintf(`<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+	<wallpaper deleted="false">
+		<name>Dynawall</name>
+		<filename>%s</filename>
+		<options>zoom</options>
+		<pcolor>#ffffff</pcolor>
+		<scolor>#000000</scolor>
+	</wallpaper>
+</wallpapers>
+`, slide_show_file_path)
 }
