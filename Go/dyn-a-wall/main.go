@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -45,7 +46,7 @@ func main() {
 	for _, file := range files {
 		file_name := file.Name()
 		if is_image(file_name) {
-			images = append(images, cwd+"/"+file_name)
+			images = append(images, filepath.Join(cwd, file_name))
 		}
 	}
 
@@ -63,7 +64,13 @@ func main() {
 	// Make the wallpaper (xml) file.
 	// Ensure parent dir exists.
 	// Abort if file is already there.
-	err = os.MkdirAll("share/backgrounds/gnome-background-properties", 0755)
+	// NOTE: For now I'm using current directory.  To install we'll use
+	// "~/.local/share/backgrounds/".
+
+	base_directory := "share"
+
+	properties_directory := filepath.Join(cwd, base_directory, "gnome-background-properties")
+	err = os.MkdirAll(properties_directory, 0755)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,14 +79,16 @@ func main() {
 	// Ensure parent dir exists.
 	// Abort if file is already there.
 	// NOTE: "dynawall" is just a temporary/default name.
-	err = os.MkdirAll("share/backgrounds/dynawall", 0755)
+
+	wallpaper_directory := filepath.Join(cwd, base_directory, "backgrounds/dynawall")
+	err = os.MkdirAll(wallpaper_directory, 0755)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Make the content of the slide show description (xml).
 	// Abort on errors (unlikely).  Clean up?
-	// NOTE: Based on https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/adwaita-timed.xml.in?ref_type=heads
+	// NOTE: Based upon: https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/adwaita-timed.xml.in?ref_type=heads
 	slide_show_xml := `<background>
 	<starttime>
 		<year>2001</year>
@@ -104,7 +113,7 @@ func main() {
 
 	// Save content to file(s).
 	// Abort on errors (unlikely).  Clean up?
-	slide_show_file_path := "share/backgrounds/dynawall/dynawall_slide_show.xml"
+	slide_show_file_path := filepath.Join(wallpaper_directory, "dynawall_slide_show.xml")
 	slide_show_file, err := os.OpenFile(slide_show_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -121,6 +130,7 @@ func main() {
 
 	// Make the content of the wallpaper (xml).
 	// Abort on errors (unlikely).  Clean up?
+	// Based upon: https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/gnome-41/backgrounds/gnome-backgrounds.xml.in?ref_type=heads
 
 	wallpaper_xml := fmt.Sprintf(`<?xml version="1.0"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
@@ -135,7 +145,7 @@ func main() {
 </wallpapers>
 `, slide_show_file_path)
 
-	wallpaper_file_path := "share/backgrounds/gnome-background-properties/dynawall_wallpaper.xml"
+	wallpaper_file_path := filepath.Join(properties_directory, "dynawall_wallpaper.xml")
 	wallpaper_file, err := os.OpenFile(wallpaper_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		log.Fatal(err)
