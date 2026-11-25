@@ -20,6 +20,7 @@ func main() {
 	//     - There are no images in the given directory (for now ".").
 	//     - The wallpaper already exists.
 	//     - The slide show description already exists.
+	print_options()
 
 	// NOTE: For now I'm using current directory.  To install we'll use
 	// "~/.local/share/backgrounds/".
