@@ -21,7 +21,8 @@ func main() {
 	//     - The wallpaper already exists.
 	//     - The slide show description already exists.
 
-	// Use current working directory for now.
+	// NOTE: For now I'm using current directory.  To install we'll use
+	// "~/.local/share/backgrounds/".
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
