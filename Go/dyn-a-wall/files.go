@@ -40,39 +40,85 @@ const (
 func make_files(install_dir string, images []string) error {
 
 	base_dir := filepath.Join(install_dir, shared_dir_name)
-	var err error
 
 	// Ensure the directories exist or create them.
+	wallpaper_dir_path, slide_show_dir_path, err := make_directories(base_dir)
+	if err != nil {
+		return err
+	}
+
+	// Make slide show description file.
+	slide_show_file_path, err := write_slide_show(slide_show_dir_path, images)
+	if err != nil {
+		return err
+	}
+
+	// Make wallpaper file.
+	err = write_wallpaper(wallpaper_dir_path, slide_show_file_path)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func make_wallpaper_dir(base_dir string) (string, error) {
 	wallpaper_dir_path := filepath.Join(base_dir, wallpaper_dir_name)
-	err = os.MkdirAll(wallpaper_dir_path, 0755)
+	err := os.MkdirAll(wallpaper_dir_path, 0755)
 	if err != nil {
-		return err
+		return "", err
 	}
 
+	return wallpaper_dir_path, nil
+}
+
+func make_slide_show_dir(base_dir string) (string, error) {
 	slide_show_dir_path := filepath.Join(base_dir, backgrounds_dir_name, slide_show_dir_name)
-	err = os.MkdirAll(slide_show_dir_path, 0755)
+	err := os.MkdirAll(slide_show_dir_path, 0755)
 	if err != nil {
-		return err
+		return "", err
 	}
 
+	return slide_show_dir_path, nil
+}
+
+func make_directories(base_dir string) (wallpaper_dir_path, slide_show_dir_path string, err error) {
+	wallpaper_dir_path, err = make_wallpaper_dir(base_dir)
+	if err != nil {
+		return "", "", err
+	}
+
+	slide_show_dir_path, err = make_slide_show_dir(base_dir)
+	if err != nil {
+		return "", "", err
+	}
+
+	return
+}
+
+func write_slide_show(slide_show_dir_path string, images []string) (string, error) {
 	// Make the slide show description file.  It should not exist.
 	slide_show_file_path := filepath.Join(slide_show_dir_path, slide_show_file_name)
 	slide_show_file, err := os.OpenFile(slide_show_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	slide_show_xml := make_slide_show_description(images)
 
 	_, err = slide_show_file.WriteString(slide_show_xml)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	if err = slide_show_file.Close(); err != nil {
-		return err
+		return "", err
 	}
 
+	return slide_show_file_path, nil
+}
+
+func write_wallpaper(wallpaper_dir_path, slide_show_file_path string) error {
 	// Make the wallpaper file.  It should not exist.
 	// TODO: If the file exist, check if it contains a section to the slide show.  If not, append a
 	// new section for this slide show.
