@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-func run() error {
+func run(options Options) error {
 	// First try:
 	//     - No options.  No command line arguments.
 	//     - Don't install.  Instead create the files under "./share/...".
@@ -14,7 +14,6 @@ func run() error {
 	//     - There are no images in the given directory (for now ".").
 	//     - The wallpaper already exists.
 	//     - The slide show description already exists.
-	print_options()
 
 	// NOTE: For now I'm using the current directory.  To install we'll use
 	// "~/.local/share/backgrounds/".
