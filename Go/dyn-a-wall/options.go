@@ -6,6 +6,7 @@ import (
 )
 
 type Options struct {
+	name                string
 	images_directory    string
 	image_duration      int
 	copy                bool
@@ -19,6 +20,8 @@ type Options struct {
 // Don't worry about the flag names, they're just temporary.  I'll provide a nice CLI to select the
 // options.
 var (
+	name = flag.String("name", "dynawall", "Wallpaper name.")
+
 	images_directory = flag.String("directory", ".", "Images directory.")
 
 	image_duration = flag.Int("time", 600, "Image duration in seconds.")
@@ -42,6 +45,7 @@ func init() {
 
 func get_options() Options {
 	return Options{
+		name:                *name,
 		images_directory:    *images_directory,
 		image_duration:      *image_duration,
 		copy:                *make_copies,

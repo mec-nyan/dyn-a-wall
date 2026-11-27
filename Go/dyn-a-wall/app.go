@@ -7,7 +7,7 @@ func run(options Options) error {
 		return err
 	}
 
-	err = make_files(options.install, images)
+	err = make_files(options, images)
 	if err != nil {
 		return err
 	}

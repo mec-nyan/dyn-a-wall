@@ -29,22 +29,22 @@ import (
 // file.  Hence the detailed names for each of those items.
 
 const (
-	shared_dir_name      string = "share"
-	wallpaper_dir_name   string = "gnome-background-properties"
-	backgrounds_dir_name string = "backgrounds"
-	slide_show_dir_name  string = "dynawall" // temporary name.
-	wallpaper_file_name  string = "dynawall_wallpaper.xml"
-	slide_show_file_name string = "dynawall_slide_show.xml"
+	default_install_dir    string = ".local"
+	shared_dir_name        string = "share"
+	wallpaper_dir_name     string = "gnome-background-properties"
+	backgrounds_dir_name   string = "backgrounds"
+	wallpaper_file_suffix  string = "_wallpaper.xml"
+	slide_show_file_suffix string = "_slide_show.xml"
 )
 
-func make_files(install bool, images []string) error {
+func make_files(options Options, images []string) error {
 	var install_dir string
-	if install {
+	if options.install {
 		home_dir, err := os.UserHomeDir()
 		if err != nil {
 			return err
 		}
-		install_dir = filepath.Join(home_dir, ".local")
+		install_dir = filepath.Join(home_dir, default_install_dir)
 
 	} else {
 		cwd, err := os.Getwd()
@@ -57,19 +57,19 @@ func make_files(install bool, images []string) error {
 	base_dir := filepath.Join(install_dir, shared_dir_name)
 
 	// Ensure the directories exist or create them.
-	wallpaper_dir_path, slide_show_dir_path, err := make_directories(base_dir)
+	wallpaper_dir_path, slide_show_dir_path, err := make_directories(base_dir, options.name)
 	if err != nil {
 		return err
 	}
 
 	// Make slide show description file.
-	slide_show_file_path, err := write_slide_show(slide_show_dir_path, images)
+	slide_show_file_path, err := write_slide_show(options.name, slide_show_dir_path, images)
 	if err != nil {
 		return err
 	}
 
 	// Make wallpaper file.
-	err = write_wallpaper(wallpaper_dir_path, slide_show_file_path)
+	err = write_wallpaper(options.name, wallpaper_dir_path, slide_show_file_path)
 	if err != nil {
 		return err
 	}
@@ -87,8 +87,8 @@ func make_wallpaper_dir(base_dir string) (string, error) {
 	return wallpaper_dir_path, nil
 }
 
-func make_slide_show_dir(base_dir string) (string, error) {
-	slide_show_dir_path := filepath.Join(base_dir, backgrounds_dir_name, slide_show_dir_name)
+func make_slide_show_dir(base_dir string, wallpaper_name string) (string, error) {
+	slide_show_dir_path := filepath.Join(base_dir, backgrounds_dir_name, wallpaper_name)
 	err := os.MkdirAll(slide_show_dir_path, 0755)
 	if err != nil {
 		return "", err
@@ -97,13 +97,13 @@ func make_slide_show_dir(base_dir string) (string, error) {
 	return slide_show_dir_path, nil
 }
 
-func make_directories(base_dir string) (wallpaper_dir_path, slide_show_dir_path string, err error) {
+func make_directories(base_dir string, wallpaper_name string) (wallpaper_dir_path, slide_show_dir_path string, err error) {
 	wallpaper_dir_path, err = make_wallpaper_dir(base_dir)
 	if err != nil {
 		return "", "", err
 	}
 
-	slide_show_dir_path, err = make_slide_show_dir(base_dir)
+	slide_show_dir_path, err = make_slide_show_dir(base_dir, wallpaper_name)
 	if err != nil {
 		return "", "", err
 	}
@@ -111,9 +111,9 @@ func make_directories(base_dir string) (wallpaper_dir_path, slide_show_dir_path 
 	return
 }
 
-func write_slide_show(slide_show_dir_path string, images []string) (string, error) {
+func write_slide_show(wallpaper_name, slide_show_dir_path string, images []string) (string, error) {
 	// Make the slide show description file.  It should not exist.
-	slide_show_file_path := filepath.Join(slide_show_dir_path, slide_show_file_name)
+	slide_show_file_path := filepath.Join(slide_show_dir_path, wallpaper_name+slide_show_file_suffix)
 	slide_show_file, err := os.OpenFile(slide_show_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		return "", err
@@ -133,11 +133,11 @@ func write_slide_show(slide_show_dir_path string, images []string) (string, erro
 	return slide_show_file_path, nil
 }
 
-func write_wallpaper(wallpaper_dir_path, slide_show_file_path string) error {
+func write_wallpaper(wallpaper_name, wallpaper_dir_path, slide_show_file_path string) error {
 	// Make the wallpaper file.  It should not exist.
 	// TODO: If the file exist, check if it contains a section to the slide show.  If not, append a
 	// new section for this slide show.
-	wallpaper_file_path := filepath.Join(wallpaper_dir_path, wallpaper_file_name)
+	wallpaper_file_path := filepath.Join(wallpaper_dir_path, wallpaper_name+wallpaper_file_suffix)
 	wallpaper_file, err := os.OpenFile(wallpaper_file_path, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 	if err != nil {
 		return err
