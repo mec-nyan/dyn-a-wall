@@ -37,7 +37,22 @@ const (
 	slide_show_file_name string = "dynawall_slide_show.xml"
 )
 
-func make_files(install_dir string, images []string) error {
+func make_files(install bool, images []string) error {
+	var install_dir string
+	if install {
+		home_dir, err := os.UserHomeDir()
+		if err != nil {
+			return err
+		}
+		install_dir = filepath.Join(home_dir, ".local")
+
+	} else {
+		cwd, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		install_dir = cwd
+	}
 
 	base_dir := filepath.Join(install_dir, shared_dir_name)
 

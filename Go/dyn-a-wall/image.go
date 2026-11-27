@@ -22,6 +22,13 @@ func is_image(file_name string) bool {
 }
 
 func get_images(directory string) ([]string, error) {
+
+	// We need an absolute path to tell the wallpaper where to find our images.
+	directory, err := filepath.Abs(directory)
+	if err != nil {
+		return nil, err
+	}
+
 	files, err := os.ReadDir(directory)
 	if err != nil {
 		return nil, err
