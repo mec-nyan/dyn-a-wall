@@ -4,7 +4,7 @@ Create dynamic wallpapers (aka background slide shows) for **Gnome Shell**
 
 > NOTE: This README only contains information relevant to the C++ version of the program.  For an
 > overview of **dyn-a-wall** and to find more details please read the project's
-> [README](../README.md).
+> [README](../../README.md).
 
 [![C++](https://img.shields.io/badge/C%2B%2B-%3E%3D23-blue?style=for-the-badge)](https://isocpp.org/)
 [![CMake](https://img.shields.io/badge/CMake-4.2.3-green?style=for-the-badge)](https://cmake.org/)

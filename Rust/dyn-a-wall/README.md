@@ -4,7 +4,7 @@ Create dynamic wallpapers (aka background slide shows) for **Gnome Shell**
 
 > NOTE: This README only contains information relevant to the Rust version of the program.  For an
 > overview of **dyn-a-wall** and to find more details please read the project's
-> [README](../README.md).
+> [README](../../README.md).
 
 [![Rust](https://img.shields.io/badge/Rust-1.99-orange?style=for-the-badge)](https://rust-lang.org/) 🦀 🐚 🦀
 

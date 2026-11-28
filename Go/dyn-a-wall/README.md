@@ -4,7 +4,7 @@ Create dynamic wallpapers (aka background slide shows) for **Gnome Shell**
 
 > NOTE: This README only contains information relevant to the Go version of the program.  For an
 > overview of **dyn-a-wall** and to find more details please read the project's
-> [README](../README.md).
+> [README](../../README.md).
 
 [![Go](https://img.shields.io/badge/Go-1.27-dodgerblue?style=for-the-badge)](https://go.dev/)
 

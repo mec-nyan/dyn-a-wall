@@ -10,7 +10,9 @@ _If you prefer the **Rust** version, go to the [East](./Rust/dyn-a-wall/)._
 
 _If you rather want the **C++** version, go to the [West](./Cpp/dyn-a-wall/)._
 
-_If you're more comfortable with the **Go** version, go [South](./Go/dyn-a-wall/) instead._
+_If instead you'd like to check the **Zig** version, go [South](./Zig/dyn-a-wall/)._
+
+_If you're more comfortable with the **Go** version, go [North](./Go/dyn-a-wall/)._
 
 
 >[!NOTE]
